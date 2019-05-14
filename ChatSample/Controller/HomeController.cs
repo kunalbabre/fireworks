@@ -27,4 +27,16 @@ public class HomeController : Controller
     {
         return _strongFireworkHubContext.Clients.All.SendAsync("multiFirework").IsCompleted;
     }
+
+
+    public bool IsRunning()
+    {
+        return !FireworkHub.isCrashed;
+    }
+
+    public bool ToggleCrash()
+    {
+        FireworkHub.isCrashed = !FireworkHub.isCrashed;
+        return FireworkHub.isCrashed;
+    }
 }

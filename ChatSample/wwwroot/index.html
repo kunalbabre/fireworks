@@ -4,16 +4,36 @@
     <title>Fireworks</title>
     <style type="text/css">
 
+
+
         .container {
-            background-color: darkred;
-            color: white;
-
-            padding: 10px;
-            margin: 0px;
-            display: flex;
-                height: 6vh;
-
+  display: flex;
+  color: white;
+  align-content:center;
+          height: 6vh;
+          min-height:80px;
+}
+        
+        .container input {
+                 height: 5vh;
+                 margin-right:10px;
+                 float:right;
+                 min-height:20px;
         }
+
+        .left-half {
+          background-color: darkred;
+          flex: 1;
+          padding: 3px;
+          padding-left:20px;
+        }
+
+.right-half {
+  background-color: firebrick;
+  flex: 1;
+  padding: 1rem;
+}
+
 
         body {
             margin: 0;
@@ -33,25 +53,36 @@
             margin-left:10px;
             margin-right:15px;
         }
-        .flotRight {
-             display: flex;
-             text-align:right; 
-             margin-left:40px;
-        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Fireworks</h1>
-        <div  class="flotRight">
-            <input type="button" id="sendmessage" value="Fire Single Shot" /> &nbsp;
-            <input type="button" id="sendmultishot" value="Fire Multi Shot" />
+        <div class="left-half">
+            <h1>Fireworks</h1>
 
-            <ul id="discussion"></ul>
-             <p>Fireworks Counter: <span id="FireworksCounter" class="data">0</span></p> 
 
-             <p>Multi-Fireworks Counter: <span id="multiFireworksCounter" class="data">0</span></p>
         </div>
+
+        <div class="left-half">
+
+            <h2>
+               
+                Single-Shot: <span id="FireworksCounter" class="data">0</span>
+                Multi-Shot: <span id="multiFireworksCounter" class="data">0</span>
+            </h2>
+
+        </div>
+
+        <div class="right-half">
+
+            <input type="button" id="crashme" value="Crash" />
+            <input type="button" id="sendmultishot" value="Fire Multi Shot" />
+            <input type="button" id="sendmessage" value="Fire Single Shot" /> &nbsp;
+
+        </div>
+
+
     </div>
 
     <!-- setup our canvas element -->
@@ -96,7 +127,14 @@
                         // Call the Send method on the hub.
                         connection.invoke('SendMultiShot');
                         event.preventDefault();
+                 });
+
+                 document.getElementById('crashme').addEventListener('click', function (event) {
+                        // Call the Send method on the hub.
+                        connection.invoke('CrashMe');
+                        event.preventDefault();
                     });
+
                 })
                 .catch(error => {
                     console.error(error.message);
@@ -372,6 +410,5 @@
 
 
     </script>
-
 </body>
 </html>
