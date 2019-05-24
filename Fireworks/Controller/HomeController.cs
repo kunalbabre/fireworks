@@ -1,6 +1,7 @@
 ﻿using ChatSample.Hubs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 public class HomeController : Controller
@@ -29,9 +30,17 @@ public class HomeController : Controller
     }
 
 
-    public bool IsRunning()
+    public ActionResult IsRunning()
     {
-        return !FireworkHub.isCrashed;
+        if (FireworkHub.isCrashed)
+        {
+            return BadRequest();
+        }
+        else
+        {
+            return Ok();
+        }
+
     }
 
     public bool ToggleCrash()
