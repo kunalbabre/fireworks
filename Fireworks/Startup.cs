@@ -1,7 +1,9 @@
-﻿using ChatSample.Hubs;
+﻿using Fireworks.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
+using System;
 
 namespace ChatSample
 {
@@ -11,8 +13,29 @@ namespace ChatSample
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSignalR();
+            string redisConnectionString = Environment.GetEnvironmentVariable("REDIS_CS");
+
+
+            if (string.IsNullOrEmpty(redisConnectionString))
+            {
+                services.AddSignalR();
+            }
+            else
+            {
+               
+               
+                services.AddSignalR().AddStackExchangeRedis(redisConnectionString, options =>
+                {
+                    options.Configuration.ClientName = "FireworksSignalR";
+                    options.Configuration.AllowAdmin = true;
+                });
+
+
+
+            }
+           
             services.AddMvc();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -23,9 +46,10 @@ namespace ChatSample
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseFileServer();
-          
-
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseCookiePolicy();
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -34,10 +58,12 @@ namespace ChatSample
                 
             });
             
+
             app.UseSignalR(routes =>
             {
-                routes.MapHub<FireworkHub>("/fire");
+                routes.MapHub<FireHub>("/fire");
             });
+
 
 
         }

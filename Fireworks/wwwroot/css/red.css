@@ -1,0 +1,7 @@
+﻿@import url('main.css');
+
+
+body, .left-half, .messagebox {
+    background-color: darkred;
+}
+

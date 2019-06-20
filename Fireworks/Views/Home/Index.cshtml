@@ -1,0 +1,123 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var stylecolor = ViewBag.Color + ".css";
+}
+
+@section Styles
+{
+    @if(!string.IsNullOrWhiteSpace(ViewBag.Color)){
+        <link href="~/css/@stylecolor" rel="stylesheet">
+    }
+}
+
+<div class="container">
+    <div class="left-half">
+        <h1>Fireworks</h1>
+
+
+    </div>
+
+
+
+    <div class="right-half">
+        @if (ViewBag.IsAdmin)
+        {
+
+            <input type="button" id="crashme" value="Crash" />
+
+        }
+        <input type="button" id="sendmultishot" value="Fire Multi Shot" />
+        <input type="button" id="sendmessage" value="Fire Single Shot" /> &nbsp;
+
+    </div>
+
+
+</div>
+
+
+
+
+<canvas id="canvas" class="fireworkCanvas">Canvas is not supported in your browser.</canvas>
+
+<div class="messagebox">
+    <div id="messageTextConnectionStatus" class="messageTextConnectionStatus"> Connecting....</div> &nbsp;
+
+
+    <div class="messageText">
+        <span id="verbose"></span>
+        Single-Shot: <span id="singleCounter" class="data">0</span>
+        Multi-Shot: <span id="multiCounter" class="data">0</span>
+        Total-Fireworks: <span id="totalCounter" class="data">0</span>
+    </div>
+
+
+</div>
+<div class="overlay" id="crashedDiv">
+
+    <h1>Your Application Crashed  <input type="button" id="tryresolve" value="Try Resolve" /></h1>
+
+
+</div>
+
+@section Scripts
+{
+
+
+    <script type="text/javascript" src="/lib/signalr.min.js"></script>
+    <script type="text/javascript" src="~/js/signalRClient.js"></script>
+    <script type="text/javascript" src="~/js/fireworks.js"></script>
+    <script>
+        var MyCouter = {
+            isCrashed: false,
+            single: 0,
+            multi: 0,
+            total: 0,
+            totalSingle: 0,
+            totalMulti: 0,
+            singleElt: document.getElementById('singleCounter'),
+            multiElt: document.getElementById('multiCounter'),
+            totalElt: document.getElementById('totalCounter'),
+            crashedDivElt: document.getElementById('crashedDiv'),
+            sendSingleId: 'sendmessage',
+            sendMultiId: 'sendmultishot',
+            sendCrashId: 'crashme',
+            sendTryResolveId: 'tryresolve',
+            receivedSingle: function () {
+                this.single++;
+                this.totalSingle++;
+                this.update();
+            },
+            receivedMulti: function () {
+                this.multi++;
+                this.totalMulti++;
+                this.update();
+            },
+            update: function () {
+                this.singleElt.innerText = this.totalSingle;
+                this.multiElt.innerText = this.totalMulti;
+                this.totalElt.innerText = this.total;
+            },
+            showMessage(msg) {
+                document.getElementById('verbose').innerText = msg;
+            },
+            showConnectionStatusMessage(msg) {
+
+                document.getElementById('messageTextConnectionStatus').innerText = msg;
+            },
+            updateCrashStatus: function (isCrashed) {
+                if (isCrashed) {
+                    this.crashedDivElt.style.display = 'block';
+                } else {
+                    this.crashedDivElt.style.display = 'none';
+                }
+            },
+
+        };
+        startSignalR(MyCouter);
+        fireworks(MyCouter, 'canvas');
+
+    </script>
+
+
+
+}

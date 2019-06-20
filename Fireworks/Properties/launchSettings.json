@@ -12,7 +12,9 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "APP_COLOR": "red",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "REDIS_CS": " localhost:6379"
       }
     },
     "Docker": {

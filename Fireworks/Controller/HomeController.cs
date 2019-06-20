@@ -1,21 +1,56 @@
-﻿using ChatSample.Hubs;
+﻿using Fireworks.Hubs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using System;
+using System.Drawing;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 public class HomeController : Controller
 {
-    public IHubContext<FireworkHub> _strongFireworkHubContext { get; }
+    public IHubContext<FireHub> _strongFireworkHubContext { get; }
 
-    public HomeController(IHubContext<FireworkHub> fireworkHubContext)
+    public HomeController(IHubContext<FireHub> fireworkHubContext)
     {
         _strongFireworkHubContext = fireworkHubContext;
     }
+    private string _appColor;
+    private string AppColor
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(_appColor))
+            {
+                var color = Environment.GetEnvironmentVariable("APP_COLOR");
 
+                color = (string.IsNullOrEmpty(color))? string.Empty:color.ToLower().Trim();
+
+                if (color != "red" && color != "blue" && color != "yellow" && color != "green")
+                {
+                    color = string.Empty;
+                }
+               
+
+               
+
+                _appColor = color;
+
+            }
+            return _appColor;
+        }
+    }
     public IActionResult Index()
     {
+        ViewBag.Color = AppColor;
+        ViewBag.IsAdmin = false;
         return View();
+    }
+
+    public IActionResult Admin()
+    {
+        ViewBag.Color = AppColor;
+        ViewBag.IsAdmin = true;
+        return View("Index");
     }
 
     public bool SingleShot()
@@ -30,9 +65,11 @@ public class HomeController : Controller
     }
 
 
+
     public ActionResult IsRunning()
     {
-        if (FireworkHub.isCrashed)
+
+        if (FireHub.isCrashed)
         {
             return BadRequest();
         }
@@ -45,7 +82,7 @@ public class HomeController : Controller
 
     public bool ToggleCrash()
     {
-        FireworkHub.isCrashed = !FireworkHub.isCrashed;
-        return FireworkHub.isCrashed;
+        FireHub.isCrashed = !FireHub.isCrashed;
+        return FireHub.isCrashed;
     }
 }
