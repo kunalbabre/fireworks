@@ -40,14 +40,17 @@
 <canvas id="canvas" class="fireworkCanvas">Canvas is not supported in your browser.</canvas>
 
 <div class="messagebox">
+
     <div id="messageTextConnectionStatus" class="messageTextConnectionStatus"> Connecting....</div> &nbsp;
 
 
     <div class="messageText">
         <span id="verbose"></span>
-        Single-Shot: <span id="singleCounter" class="data">0</span>
-        Multi-Shot: <span id="multiCounter" class="data">0</span>
-        Total-Fireworks: <span id="totalCounter" class="data">0</span>
+        <span id="signalRBackplaneInfo"></span> # 
+
+        Single-Shot: <span id="singleCounter" class="data">0</span>  
+        Multi-Shot: <span id="multiCounter" class="data">0</span> 
+        Total-Fireworks: <span id="totalCounter" class="data">0</span> 
     </div>
 
 
@@ -78,6 +81,7 @@
             multiElt: document.getElementById('multiCounter'),
             totalElt: document.getElementById('totalCounter'),
             crashedDivElt: document.getElementById('crashedDiv'),
+            signalRBackplaneInfoElt: document.getElementById('signalRBackplaneInfo'),
             sendSingleId: 'sendmessage',
             sendMultiId: 'sendmultishot',
             sendCrashId: 'crashme',
@@ -109,6 +113,13 @@
                     this.crashedDivElt.style.display = 'block';
                 } else {
                     this.crashedDivElt.style.display = 'none';
+                }
+            },
+            updateBackplaneStatus: function (usingRedis) {
+                if (usingRedis) {
+                    this.signalRBackplaneInfoElt.innerText = 'Signalr using Redis';
+                } else {
+                    this.signalRBackplaneInfoElt.innerText = 'Signalr ';
                 }
             },
 

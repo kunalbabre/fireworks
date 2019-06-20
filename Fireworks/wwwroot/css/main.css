@@ -10,8 +10,10 @@
         height: 5vh;
         margin-right: 10px;
         float: right;
-        min-height: 20px;
+        min-height: 40px;
     }
+
+
 .overlay input {
     display: block;
     margin: 15px;
@@ -74,8 +76,8 @@ canvas {
 
     .messagebox .data {
         font-weight: 900;
-        margin-left: 10px;
-        margin-right: 15px;
+        margin-left: 5px;
+        margin-right: 5px;
     }
 div.overlay {
     position: absolute;

@@ -30,8 +30,9 @@
             options.showMessage("Processing a multi-shot request...");
         });
 
-        connection.on('heartbeat', function (isCrashed) {
+        connection.on('heartbeat', function (isCrashed,usingRedis) {
             options.updateCrashStatus(isCrashed);
+            options.updateBackplaneStatus(usingRedis);
         });
 
         function start(conn) {

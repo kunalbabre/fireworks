@@ -69,7 +69,7 @@ public class HomeController : Controller
     public ActionResult IsRunning()
     {
 
-        if (FireHub.isCrashed)
+        if (FireHub.IsCrashed)
         {
             return BadRequest();
         }
@@ -82,7 +82,7 @@ public class HomeController : Controller
 
     public bool ToggleCrash()
     {
-        FireHub.isCrashed = !FireHub.isCrashed;
-        return FireHub.isCrashed;
+        FireHub.IsCrashed = !FireHub.IsCrashed;
+        return FireHub.IsCrashed;
     }
 }

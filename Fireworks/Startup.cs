@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 using System;
 
-namespace ChatSample
+namespace Fireworks
 {
     public class Startup
     {
