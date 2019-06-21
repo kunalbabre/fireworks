@@ -7,7 +7,7 @@
 
         // Start the connection.
         connection = new signalR.HubConnectionBuilder()
-            .withUrl('/fire')
+            .withUrl('/firehub')
             .build();
 
         start(connection);
@@ -30,9 +30,9 @@
             options.showMessage("Processing a multi-shot request...");
         });
 
-        connection.on('heartbeat', function (isCrashed,usingRedis) {
+        connection.on('heartbeat', function (isCrashed,usingRedis,usingAzureSignalr) {
             options.updateCrashStatus(isCrashed);
-            options.updateBackplaneStatus(usingRedis);
+            options.updateBackplaneStatus(usingRedis, usingAzureSignalr);
         });
 
         function start(conn) {

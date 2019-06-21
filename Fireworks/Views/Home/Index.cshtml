@@ -115,11 +115,15 @@
                     this.crashedDivElt.style.display = 'none';
                 }
             },
-            updateBackplaneStatus: function (usingRedis) {
+            updateBackplaneStatus: function (usingRedis, usingAzureSignalr) {
                 if (usingRedis) {
-                    this.signalRBackplaneInfoElt.innerText = 'Signalr using Redis';
-                } else {
-                    this.signalRBackplaneInfoElt.innerText = 'Signalr ';
+                    this.signalRBackplaneInfoElt.innerText = 'Backplane: Redis ';
+                }
+                else if (usingAzureSignalr){
+                  this.signalRBackplaneInfoElt.innerText = 'Backplane: AzureSignalr ';
+                }
+                else {
+                    this.signalRBackplaneInfoElt.innerText = 'Backplane: Signalr(in-memory) ';
                 }
             },
 

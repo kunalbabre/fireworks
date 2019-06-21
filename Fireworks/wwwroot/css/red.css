@@ -1,7 +1,7 @@
 ﻿@import url('main.css');
 
 
-body, .left-half, .messagebox {
+body, .container, .messagebox {
     background-color: darkred;
 }
 

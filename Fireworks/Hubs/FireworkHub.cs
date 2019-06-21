@@ -10,20 +10,10 @@ namespace Fireworks.Hubs
 
     public class FireHub : Hub
     {
-        public static bool IsCrashed=false;
-        private bool? _UsingRedis;
-        private bool UsingRedis
-        {
-            get
-            {
-                if (_UsingRedis ==null)
-                {
-                   _UsingRedis = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("REDIS_CS"));
+        public static bool IsCrashed = false;
+        public static bool UsingRedis = false;
+        public static bool UsingAzureSignalr = false;
 
-                }
-                return (bool)_UsingRedis;
-            }
-        }
         public void Send()
         {
             SendSingleShot();
@@ -45,7 +35,7 @@ namespace Fireworks.Hubs
 
         public void HeartBeat()
         {
-            Clients.Caller.SendAsync("heartBeat", IsCrashed, UsingRedis);
+            Clients.Caller.SendAsync("heartBeat", IsCrashed, UsingRedis, UsingAzureSignalr);
         }
 
         public void CrashMe()

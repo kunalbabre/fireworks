@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 using System;
+using Microsoft.AspNetCore.Owin;
 
 namespace Fireworks
 {
@@ -11,9 +12,18 @@ namespace Fireworks
     {
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+
         public void ConfigureServices(IServiceCollection services)
         {
-            string redisConnectionString = Environment.GetEnvironmentVariable("REDIS_CS");
+            string redisConnectionString = Environment.GetEnvironmentVariable("SIGNALR_CS");
+
+
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+            builder =>
+            {
+                builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin().AllowCredentials();
+            }));
+
 
 
             if (string.IsNullOrEmpty(redisConnectionString))
@@ -22,18 +32,29 @@ namespace Fireworks
             }
             else
             {
-               
-               
-                services.AddSignalR().AddStackExchangeRedis(redisConnectionString, options =>
-                {
-                    options.Configuration.ClientName = "FireworksSignalR";
-                    options.Configuration.AllowAdmin = true;
-                });
 
+
+                if (redisConnectionString.Contains("service.signalr.net"))
+                {
+                    services.AddSignalR().AddAzureSignalR(redisConnectionString);
+                    FireHub.UsingAzureSignalr = true;
+
+                }
+                else
+                {
+                    services.AddSignalR().AddStackExchangeRedis(redisConnectionString, options =>
+                    {
+                        options.Configuration.ClientName = "FireworksSignalR";
+                        options.Configuration.AllowAdmin = true;
+                    });
+                    FireHub.UsingRedis = true;
+
+                }
+                
 
 
             }
-           
+
             services.AddMvc();
 
         }
@@ -49,7 +70,8 @@ namespace Fireworks
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            
+
+            app.UseCors("CorsPolicy");
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -57,12 +79,22 @@ namespace Fireworks
                     template: "{controller=Home}/{action=Index}/{id?}");
                 
             });
-            
 
-            app.UseSignalR(routes =>
+            if (FireHub.UsingAzureSignalr)
             {
-                routes.MapHub<FireHub>("/fire");
-            });
+                app.UseAzureSignalR(routes =>
+                {
+                    routes.MapHub<FireHub>("/firehub");
+                });
+
+            }
+            else
+            {
+                app.UseSignalR(routes =>
+                {
+                    routes.MapHub<FireHub>("/firehub");
+                });
+            }
 
 
 

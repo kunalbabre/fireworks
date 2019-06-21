@@ -2,8 +2,13 @@
     display: flex;
     color: white;
     align-content: center;
-    height: 6vh;
-    min-height: 80px;
+    display: flex;
+    float: right;
+    height: 80px;
+    position: absolute;
+    width: 100vw;
+    opacity: 0.9;
+    background-color: darkgreen;
 }
 
     .container input, .overlay input {
@@ -21,13 +26,13 @@
 }
 
 .left-half {
-    background-color: darkgreen;
     flex: 1;
     padding: 3px;
     padding-left: 8px;
 }
 
 .right-half {
+
     flex: 2;
     padding: 1rem;
 }
@@ -41,7 +46,7 @@ canvas {
     background: #000;
     display: flex;
     width: 100%;
-    height: 90vh;
+    height: 96vh;
 }
 
 .messagebox {
@@ -50,7 +55,7 @@ canvas {
     width: 100%;
     height: 25px;
     position: absolute;
-    top: 10vh;
+    top: 80px;
     opacity: 0.7;
     background-color: darkgreen;
     color: white;

@@ -12,9 +12,9 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
+        "SIGNALR_CS": "Endpoint=https://fireworks.service.signalr.net;AccessKey=9LyThRwuCiL3J7uUWlD6ZVs4wsSSbSACclBHtn27Vs4=;Version=1.0;",
         "APP_COLOR": "red",
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "REDIS_CS": " localhost:6379"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "Docker": {
