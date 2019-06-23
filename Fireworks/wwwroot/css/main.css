@@ -9,7 +9,7 @@
     width: 100vw;
     opacity: 0.9;
     background-color: darkgreen;
-    z-index: 999;
+    z-index: 700;
 
 }
 
@@ -25,6 +25,7 @@
     display: block;
     margin: 15px;
     float: none;
+
 }
 
 .left-half {
@@ -108,6 +109,7 @@ div.overlay {
     opacity: 0.9;
     filter: alpha(opacity = 50); /* required for opacity to work in IE */
     color: white;
+    z-index: 900;
 }
 
 @media (min-width: 0px) and (max-width: 690px) {
