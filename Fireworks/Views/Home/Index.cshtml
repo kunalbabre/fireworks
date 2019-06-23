@@ -41,16 +41,21 @@
 
 <div class="messagebox">
 
-    <div id="messageTextConnectionStatus" class="messageTextConnectionStatus"> Connecting....</div> &nbsp;
+    <div class="messageTextConnectionStatus">
+        <span id="messageTextConnectionStatus" class="largescreen">Connecting....</span>
+        <span id="verbose" class="verbose largescreen"></span>
 
-
+    </div> &nbsp;
+    
     <div class="messageText">
-        <span id="verbose"></span>
-        <span id="signalRBackplaneInfo"></span> # 
 
-        Single-Shot: <span id="singleCounter" class="data">0</span>  
-        Multi-Shot: <span id="multiCounter" class="data">0</span> 
+
+
+        <span class="largescreen">Backplane: </span><span id="signalRBackplaneInfo" class="data largescreen">0</span>
+        <span class="largescreen">Single-Shot: </span><span id="singleCounter" class="data largescreen">0</span>
+        <span class="largescreen">Multi-Shot: </span><span id="multiCounter" class="data largescreen">0</span>
         Total-Fireworks: <span id="totalCounter" class="data">0</span> 
+        <span class="largescreen"> <a href="https://github.com/kunalbabre/fireworks">Github</a> </span>
     </div>
 
 
@@ -82,6 +87,7 @@
             totalElt: document.getElementById('totalCounter'),
             crashedDivElt: document.getElementById('crashedDiv'),
             signalRBackplaneInfoElt: document.getElementById('signalRBackplaneInfo'),
+            titleElt: document.getElementById('title'),
             sendSingleId: 'sendmessage',
             sendMultiId: 'sendmultishot',
             sendCrashId: 'crashme',
@@ -100,6 +106,13 @@
                 this.singleElt.innerText = this.totalSingle;
                 this.multiElt.innerText = this.totalMulti;
                 this.totalElt.innerText = this.total;
+
+                var t = this.multi + this.single;
+                if (t > 0) {
+                    this.titleElt.innerText = " (" + (t) + ") Fireworks ";
+                } else {
+                     this.titleElt.innerText = "Fireworks";
+                }
             },
             showMessage(msg) {
                 document.getElementById('verbose').innerText = msg;
@@ -117,13 +130,13 @@
             },
             updateBackplaneStatus: function (usingRedis, usingAzureSignalr) {
                 if (usingRedis) {
-                    this.signalRBackplaneInfoElt.innerText = 'Backplane: Redis ';
+                    this.signalRBackplaneInfoElt.innerText = 'Redis ';
                 }
                 else if (usingAzureSignalr){
-                  this.signalRBackplaneInfoElt.innerText = 'Backplane: AzureSignalr ';
+                  this.signalRBackplaneInfoElt.innerText = 'AzureSignalr ';
                 }
                 else {
-                    this.signalRBackplaneInfoElt.innerText = 'Backplane: Signalr(in-memory) ';
+                    this.signalRBackplaneInfoElt.innerText = 'None ';
                 }
             },
 

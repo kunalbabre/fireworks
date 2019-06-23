@@ -9,10 +9,12 @@
     width: 100vw;
     opacity: 0.9;
     background-color: darkgreen;
+    z-index: 999;
+
 }
 
     .container input, .overlay input {
-        height: 5vh;
+        height: 4.5vh;
         margin-right: 10px;
         float: right;
         min-height: 40px;
@@ -49,6 +51,14 @@ canvas {
     height: 96vh;
 }
 
+a {
+    color: white;
+    text-decoration:none;
+}
+a:hover {
+    font-weight:700;
+    text-decoration: underline;
+}
 .messagebox {
     display: flex;
     float: right;
@@ -70,7 +80,9 @@ canvas {
         display: block;
         flex: 1;
     }
-
+    .messagebox .verbose {
+        font-size: x-small;
+    }
     .messagebox .messageText {
         float: right;
         display: block;
@@ -96,4 +108,59 @@ div.overlay {
     opacity: 0.9;
     filter: alpha(opacity = 50); /* required for opacity to work in IE */
     color: white;
+}
+
+@media (min-width: 0px) and (max-width: 690px) {
+    .largescreen {
+        display: none;
+    }
+    .right-half input {
+        min-height: 60px;
+        font-size: x-small;
+    }
+}
+@media (min-width: 0px) and (max-width: 480px) {
+    .container {
+        height: 100px;
+        width: 100%;
+        margin-left:0;
+    }
+
+
+    .messagebox {
+        top: 100px;
+        margin-left: 0;
+    }
+    canvas {
+        margin-left: 0px;
+    }
+    .messagebox, .messagebox .messageTextConnectionStatus {
+         font-size: x-small;
+    }
+
+
+    .left-half {
+
+        flex: 0;
+    }
+    .left-half h1 {
+        font-size: x-large;
+    }
+    .right-half input {
+            min-height: 60px;
+            font-size: x-small;
+     }
+}
+@media (min-width: 0px) and (max-width: 340px) {
+
+    .left-half h1 {
+        font-size: small;
+    }
+    .messagebox {
+        display:none;
+    }
+    .right-half input {
+        min-height: 30px;
+        font-size: xx-small;
+    }
 }
