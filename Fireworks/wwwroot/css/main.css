@@ -1,4 +1,13 @@
-﻿.container {
+﻿* {
+    touch-action: manipulation;
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden
+}
+.container {
     display: flex;
     color: white;
     align-content: center;
@@ -25,13 +34,20 @@
     display: block;
     margin: 15px;
     float: none;
-
 }
 
 .left-half {
     flex: 1;
     padding: 3px;
     padding-left: 8px;
+}
+.left-half h1 {
+    margin-bottom: 0px;
+}
+.left-half .subtitle {
+    font-size: small;
+    margin-bottom: 5px;
+    color:darkgray;
 }
 
 .right-half {
@@ -99,7 +115,7 @@ a:hover {
     }
 div.overlay {
     position: absolute;
-    display: block;
+    display: none;
     width: 100%;
     padding: 20px;
     height: 90vh;
@@ -131,9 +147,11 @@ div.overlay {
 
     .messagebox {
         top: 100px;
+        width: 100%;
         margin-left: 0;
     }
     canvas {
+        width: 100%;
         margin-left: 0px;
     }
     .messagebox, .messagebox .messageTextConnectionStatus {

@@ -13,8 +13,7 @@
 <div class="container">
     <div class="left-half">
         <h1>Fireworks</h1>
-
-
+        <span class="subtitle largescreen" id="hostName"></span>
     </div>
 
 
@@ -55,7 +54,7 @@
         <span class="largescreen">Single-Shot: </span><span id="singleCounter" class="data largescreen">0</span>
         <span class="largescreen">Multi-Shot: </span><span id="multiCounter" class="data largescreen">0</span>
         Total-Fireworks: <span id="totalCounter" class="data">0</span> 
-        <span class="largescreen"> <a href="https://github.com/kunalbabre/fireworks">Github</a> </span>
+        <a href="https://github.com/kunalbabre/fireworks">Github</a>
     </div>
 
 
@@ -87,6 +86,7 @@
             totalElt: document.getElementById('totalCounter'),
             crashedDivElt: document.getElementById('crashedDiv'),
             signalRBackplaneInfoElt: document.getElementById('signalRBackplaneInfo'),
+            hostNameElt: document.getElementById('hostName'),
             titleElt: document.getElementById('title'),
             sendSingleId: 'sendmessage',
             sendMultiId: 'sendmultishot',
@@ -120,6 +120,9 @@
             showConnectionStatusMessage(msg) {
 
                 document.getElementById('messageTextConnectionStatus').innerText = msg;
+            },
+            updateHostName: function (hostName) {
+                this.hostNameElt.innerText = hostName;
             },
             updateCrashStatus: function (isCrashed) {
                 if (isCrashed) {
