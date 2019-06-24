@@ -23,7 +23,7 @@ There is also a button that can stimulate a crash  ```/home/admin```. Pressing t
 
 
 ## Environment  variables 
-* ```SIGNALR_CS```  : (optional) if you wish to scale-out you can provide connection string for Redis and Azure SignalR
+* ```SIGNALR_CS```  : (optional) if you wish to scale-out you can provide connection string for Redis or Azure SignalR
 * ```APP_COLOR```:  (works with latest tag): you can specify theme color for the app (red,green, blue, yellow)
 
 ## Health Monitoring 
