@@ -1,10 +1,7 @@
 # Fireworks App
+SignalR based application that allows website users to light fireworks and display on all the connected site users. You can light single or multi shot using the app. There is also a button that can stimulate a crash /home/admin. Pressing the button again will make the application run again.
 
-SignalR based application that allows website users to light fireworks and display on all the connected site users. You can light single or multishot using the app.
-
-There is also a button that can stimulate a crash  ```/home/admin```. Pressing the button again will make the application run again.
-
-
+Source: [Github](https://github.com/kunalbabre/fireworks)
 
 ## Port Exposed
 * 80
