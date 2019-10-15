@@ -4,9 +4,9 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 WORKDIR /src
-COPY ["Fireworks/Fireworks.csproj", "Fireworks/"]
+COPY ["Fireworks.csproj", "Fireworks/"]
 RUN dotnet restore "Fireworks/Fireworks.csproj"
-COPY . .
+COPY . Fireworks/
 WORKDIR "/src/Fireworks"
 RUN dotnet build "Fireworks.csproj" -c Release -o /app
 
