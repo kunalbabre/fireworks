@@ -6,7 +6,7 @@ Source: [Github](https://github.com/kunalbabre/fireworks)
 ## Port Exposed
 * 80
 
-## Images [on Docker Hub](https://cloud.docker.com/u/kunalbabre/repository/docker/kunalbabre/fireworks): 
+## Images [on Docker Hub](https://hub.docker.com/r/kunalbabre/fireworks): 
 
 * Green: kunalbabre/fireworks:green
 * Blue: kunalbabre/fireworks:blue
